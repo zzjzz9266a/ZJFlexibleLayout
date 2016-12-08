@@ -43,4 +43,4 @@
     cell的额外高度：heightOfAdditionalContent
 
 怎么样，简单吧？
-欢迎大家关注我的[简书]()
+欢迎大家关注我的[简书](http://www.jianshu.com/p/28eae0d82fdc)
