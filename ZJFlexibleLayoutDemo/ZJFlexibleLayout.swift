@@ -6,22 +6,24 @@
 
 
 import UIKit
+//private
 let kScreenBounds = UIScreen.main.bounds
 let kScreenSize = kScreenBounds.size
 let kScreenWidth = kScreenSize.width
 let kScreenHeight = kScreenSize.height
+
 //用来储存每一列的坐标
-typealias ColHeight = (index:Int,cellHeight:CGFloat)
+typealias ColHeight = (index:Int,colHeight:CGFloat)
 
 struct HeightSaver {
     //每个section的高度：返回最大值
     var sectionHeight: CGFloat{
-        if let max = rowHeights.max(by: {$0.cellHeight<$1.cellHeight}){
-            return max.cellHeight
+        if let max = colHeights.max(by: {$0.colHeight<$1.colHeight}){
+            return max.colHeight
         }
         return 0
     }
-    var rowHeights: [ColHeight]
+    var colHeights: [ColHeight]
 }
 
 protocol ZJFlexibleLayoutDataSource: class{
@@ -32,7 +34,7 @@ protocol ZJFlexibleLayoutDataSource: class{
     //控制瀑布流cell的间距
     func spaceOfCells(at section: Int) -> CGFloat
     //边距
-    func sideMargin(at section: Int) -> CGFloat
+    func sectionInsets(at section: Int) -> UIEdgeInsets
     //每个section的header尺寸
     func sizeOfHeader(at section: Int) -> CGSize
     //每个cell的额外高度
@@ -44,8 +46,8 @@ extension ZJFlexibleLayoutDataSource{
         return 0
     }
     
-    func sideMargin(at section: Int) -> CGFloat{
-        return 0
+    func sectionInsets(at section: Int) -> UIEdgeInsets{
+        return UIEdgeInsets.zero
     }
     
     func sizeOfHeader(at section: Int) -> CGSize{
@@ -60,6 +62,14 @@ extension ZJFlexibleLayoutDataSource{
 class ZJFlexibleLayout: UICollectionViewLayout {
     
     weak var dataSourceDelegate : ZJFlexibleLayoutDataSource?
+    var collectionHeaderView: UIView?{
+        willSet{
+            collectionHeaderView?.removeFromSuperview()
+        }
+        didSet{
+            collectionView?.reloadData()
+        }
+    }
     
     //暂存
     var layoutInfo: [UICollectionViewLayoutAttributes] = []
@@ -80,7 +90,10 @@ class ZJFlexibleLayout: UICollectionViewLayout {
     }
     
     override var collectionViewContentSize : CGSize {
-        if let max = colHeights.last?.sectionHeight{
+        if var max = colHeights.last?.sectionHeight{
+            if let delegate = self.dataSourceDelegate{
+                max += delegate.sectionInsets(at: colHeights.count-1).bottom
+            }
             return CGSize(width: kScreenWidth, height: max)
         }
         return CGSize.zero
@@ -94,22 +107,27 @@ class ZJFlexibleLayout: UICollectionViewLayout {
             for section in 0..<sectionNum{
                 if let delegate = dataSourceDelegate{
                     //取(前一个section的Y坐标+当前section的高度)为当前section的初始坐标
-                    let preSectionH = section==0 ? 0 : colHeights[max(section-1,0)].sectionHeight
+                    let originH = collectionHeaderView?.bounds.size.height ?? 0
+                    let preSectionH = section==0 ? originH : colHeights[section-1].sectionHeight
+                    let preSectionInsetBottom = section==0 ? 0 : delegate.sectionInsets(at: section-1).bottom
+                    let currentSectionHeaderY = preSectionH + preSectionInsetBottom - (section==0 ? 0 : delegate.spaceOfCells(at: section-1))
                     let headerSize = delegate.sizeOfHeader(at: section)
                     let headerX = (kScreenWidth - headerSize.width)/2
                     let headerH = headerSize.height
                     
                     //拼接header 的layoutAttributes
                     let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: section))
-                    headerAttributes.frame = CGRect(x: headerX, y: preSectionH, width: headerSize.width, height: headerSize.height)
+                    headerAttributes.frame = CGRect(x: headerX, y: currentSectionHeaderY, width: headerSize.width, height: headerSize.height)
                     layoutHeaderViewInfo.append(headerAttributes)
                     
                     //每个section开始计算height清零
                     var rowSavers:[ColHeight] = []
                     for index in 0..<delegate.numberOfCols(at: section){
-                        rowSavers.append((index,preSectionH+headerH))
+                        //当前section中cell的初始Y：sectionY + sectionHeaderHeight + insetTop
+                        let currentSectionY = currentSectionHeaderY + headerH + delegate.sectionInsets(at: section).top
+                        rowSavers.append((index,currentSectionY))
                     }
-                    colHeights.append(HeightSaver(rowHeights: rowSavers))
+                    colHeights.append(HeightSaver(colHeights: rowSavers))
                 }
                 
                 //拼接cell的layoutAttributes
@@ -128,38 +146,36 @@ class ZJFlexibleLayout: UICollectionViewLayout {
     func frameForCellAtIndexPath(_ indexPath : IndexPath) -> CGRect {
         if let delegate = dataSourceDelegate {
             //计算cell宽度
-            let sideMargin = delegate.sideMargin(at: indexPath.section)
+            let sectionInsets = delegate.sectionInsets(at: indexPath.section)
+            
             let space = delegate.spaceOfCells(at: indexPath.section)
             let colNum = CGFloat(delegate.numberOfCols(at: indexPath.section))
-            let spaceNum = CGFloat(delegate.numberOfCols(at: indexPath.section)-1)
-            let realCellWidth = (kScreenWidth - sideMargin*2 - space*spaceNum)/colNum
+            let spaceNum = CGFloat(max(0, delegate.numberOfCols(at: indexPath.section)-1))
+            let cellWidth = (kScreenWidth - sectionInsets.left - sectionInsets.right - space*spaceNum)/colNum
+            
             let itemSize = delegate.sizeOfItemAtIndexPath(at: indexPath)
-            var originX : CGFloat = delegate.sideMargin(at: indexPath.section)
-            var originY : CGFloat = delegate.sideMargin(at: indexPath.section)
+            var originX : CGFloat = 0.0
+            var originY : CGFloat = 0.0
             var cellHeight : CGFloat = 0.0
             
             //根据图片宽高计算cell高度
-            if itemSize.width > 0
-            {
-                cellHeight = realCellWidth * itemSize.height / itemSize.width
+            if itemSize.width > 0{
+                cellHeight = cellWidth * itemSize.height / itemSize.width
             }
-            //控制cell高度：最大480，最小100
-//            cellHeight = max(kArtWaterfallMinImageHeight, cellHeight)
-//            cellHeight = min(kArtWaterfallMaxImageHeight, cellHeight)
             
             cellHeight += delegate.heightOfAdditionalContent(at: indexPath)
             
             //找到最小高度
-            if var min = colHeights[indexPath.section].rowHeights.min(by: {$0.cellHeight<$1.cellHeight}){
-                originX = sideMargin + realCellWidth*CGFloat(min.index) + space*CGFloat(min.index)
-                originY = min.cellHeight
-                min.cellHeight += cellHeight
+            if var min = colHeights[indexPath.section].colHeights.min(by: {$0.colHeight<$1.colHeight}){
+                originX = sectionInsets.left + cellWidth*CGFloat(min.index) + space*CGFloat(min.index)
+                originY = min.colHeight
+                min.colHeight += cellHeight + space
                 
-                colHeights[indexPath.section].rowHeights.remove(at: min.index)
-                colHeights[indexPath.section].rowHeights.insert(min, at: min.index)
+                colHeights[indexPath.section].colHeights.remove(at: min.index)
+                colHeights[indexPath.section].colHeights.insert(min, at: min.index)
             }
             
-            return CGRect(x: originX, y: originY, width: realCellWidth, height: cellHeight)
+            return CGRect(x: originX, y: originY, width: cellWidth, height: cellHeight)
         }
         return CGRect.zero
     }
@@ -168,6 +184,13 @@ class ZJFlexibleLayout: UICollectionViewLayout {
         colHeights.removeAll()
         layoutInfo.removeAll()
         layoutHeaderViewInfo.removeAll()
+        
+        //初始化headerView, Y为0
+        guard let headerView = collectionHeaderView else {return}
+        let headerWidth = headerView.bounds.size.width
+        let headerX = (kScreenWidth - headerWidth)/2
+        headerView.frame = CGRect(x: headerX, y: 0, width: headerWidth, height: headerView.bounds.size.height)
+        collectionView?.addSubview(headerView)
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
