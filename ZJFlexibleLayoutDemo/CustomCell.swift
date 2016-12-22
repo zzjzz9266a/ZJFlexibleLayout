@@ -16,8 +16,8 @@ class CustomCell: UICollectionViewCell {
         label.textAlignment = .center
         label.textColor = .black
         label.backgroundColor = .clear
-        contentView.layer.borderColor = UIColor.red.cgColor
-        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.black.cgColor
+        contentView.layer.borderWidth = 1
     }
     
     override func layoutSubviews() {

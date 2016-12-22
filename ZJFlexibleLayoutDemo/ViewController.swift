@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         collectionViewInit()
         creatDataSource()
     }
-    
+
     //生成随机尺寸
     func creatDataSource(){
         for index in 0..<4{
@@ -34,6 +34,14 @@ class ViewController: UIViewController {
     
     func collectionViewInit(){
         let layout = ZJFlexibleLayout(delegate: self)
+        
+        //设置headerView
+        let headerView = UILabel(frame: CGRect(x: 0, y: 10, width: kScreenWidth, height: 200))
+        headerView.textAlignment = .center
+        headerView.attributedText = NSAttributedString(string: "我是CollectionHeaderView", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.white])
+        headerView.backgroundColor = .green
+        layout.collectionHeaderView = headerView
+        
         collectionView = UICollectionView(frame: kScreenBounds, collectionViewLayout: layout)
         view.addSubview(collectionView)
         collectionView.backgroundColor = .white
@@ -54,11 +62,11 @@ extension ViewController: ZJFlexibleLayoutDataSource{
     }
     
     func spaceOfCells(at section: Int) -> CGFloat{
-        return 0
+        return 12
     }
     
-    func sideMargin(at section: Int) -> CGFloat{
-        return 0
+    func sectionInsets(at section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 20, bottom: 15, right: 20)
     }
     
     func sizeOfHeader(at section: Int) -> CGSize{
@@ -88,7 +96,7 @@ extension ViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! CustomHeader
-        header.label.text = "我是第\(indexPath.section)个Header"
+        header.label.text = "我是第\(indexPath.section)个sectionHeader"
         header.backgroundColor = .black
         return header
     }
