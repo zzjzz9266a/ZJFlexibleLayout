@@ -13,13 +13,13 @@
 #使用
 闲话不多说，上代码：
 1、首先定义一个collectionview，并设置layout的代理：
-        
-    let layout = ZJFlexibleLayout(delegate: self)
+``` swift
+let layout = ZJFlexibleLayout(delegate: self)
     collectionView = UICollectionView(frame: kScreenBounds, collectionViewLayout: layout)
-
+```
 2、遵守对应的协议：
-
-    protocol ZJFlexibleLayoutDataSource: class{
+``` swift
+protocol ZJFlexibleLayoutDataSource: class{
         //控制对应section的瀑布流列数
         func numberOfCols(at section: Int) -> Int
         //控制每个cell的尺寸，实际上就是获取宽高比
@@ -33,6 +33,8 @@
         //每个cell的额外高度
         func heightOfAdditionalContent(at indexPath : IndexPath) -> CGFloat
     }
+```
+
 只要遵守这个协议，就可以控制瀑布流的每个参数，包括：
     
     cell尺寸：sizeOfItemAtIndexPath
