@@ -83,8 +83,7 @@ sectionHeader如果宽度小于屏宽，会自动居中
 ![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1324647-4ce5208fae820967.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ---
-# 结束语
 
-[Demo](https://github.com/zzjzz9266a/ZJFlexibleLayout)已经放到GitHub上了，欢迎大家Star，也请大家不要吝啬好的建议哈~~
+欢迎大家Star，也请大家不要吝啬好的建议哈~~
 
 ![这是demo.gif](http://upload-images.jianshu.io/upload_images/1324647-5d3076da5d2aebff.gif?imageMogr2/auto-orient/strip)
