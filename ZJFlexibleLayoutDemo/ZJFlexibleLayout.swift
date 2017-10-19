@@ -72,7 +72,7 @@ class ZJFlexibleLayout: UICollectionViewLayout {
     }
     
     //暂存
-    var layoutInfo: [UICollectionViewLayoutAttributes] = []
+    var layoutDict: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     var layoutHeaderViewInfo: [UICollectionViewLayoutAttributes] = []
     var colHeights:[HeightSaver] = []    //坐标寄存器
     
@@ -136,7 +136,7 @@ class ZJFlexibleLayout: UICollectionViewLayout {
                         let indexPath = IndexPath(item: item, section: section)
                         let itemAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                         itemAttributes.frame = frameForCellAtIndexPath(indexPath)
-                        layoutInfo.append(itemAttributes)
+                        layoutDict.updateValue(itemAttributes, forKey: IndexPath(item: item, section: section))
                     }
                 }
             }
@@ -182,7 +182,7 @@ class ZJFlexibleLayout: UICollectionViewLayout {
     
     func layoutInit() {
         colHeights.removeAll()
-        layoutInfo.removeAll()
+        layoutDict.removeAll()
         layoutHeaderViewInfo.removeAll()
         
         //初始化headerView, Y为0
@@ -194,24 +194,19 @@ class ZJFlexibleLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        if indexPath.row >= layoutInfo.count {
-            return nil
-        }
-        return layoutInfo[indexPath.row]
+        return layoutDict[indexPath]
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var result : [UICollectionViewLayoutAttributes] = []
-        for index in 0..<layoutInfo.count {
-            let itemAttribute = layoutInfo[index]
-            if itemAttribute.frame.intersects(rect) {
-                result.append(itemAttribute)
+        layoutDict.values.forEach({ (attribute) in
+            if attribute.frame.intersects(rect) {
+                result.append(attribute)
             }
-        }
-        for index in 0..<layoutHeaderViewInfo.count{
-            let itemAttribute = layoutHeaderViewInfo[index]
-            if itemAttribute.frame.intersects(rect) {
-                result.append(itemAttribute)
+        })
+        layoutHeaderViewInfo.forEach { (attribute) in
+            if attribute.frame.intersects(rect) {
+                result.append(attribute)
             }
         }
         return result
