@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         //设置headerView
         let headerView = UILabel(frame: CGRect(x: 0, y: 10, width: kScreenWidth, height: 200))
         headerView.textAlignment = .center
-        headerView.attributedText = NSAttributedString(string: "我是CollectionHeaderView", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.white])
+        headerView.attributedText = NSAttributedString(string: "我是CollectionHeaderView", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.white])
         headerView.backgroundColor = .green
         layout.collectionHeaderView = headerView
         
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: ZJFlexibleLayoutDataSource{
+extension ViewController: ZJFlexibleDataSource{
     
     func sizeOfItemAtIndexPath(at indexPath: IndexPath) -> CGSize {
         return dataSource[indexPath.section][indexPath.item]
