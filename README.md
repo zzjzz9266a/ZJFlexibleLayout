@@ -5,15 +5,13 @@
 
 
 ### 更新：
+---  
 2016-12-23  
-
----
 1、加入了collectionHeaderView，类似UITableView 中的 tableHeaderView  
 2、将 sideMargin 改为 sectionInsets，提高布局灵活度  
 
+---  
 2017-11-03  
-
----
 项目支持到swift4.0  
 
 # 使用
