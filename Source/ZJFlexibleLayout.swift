@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ZJFlexibleLayout: UICollectionViewLayout {
+open class ZJFlexibleLayout: UICollectionViewLayout {
     
     open weak var dataSourceDelegate : ZJFlexibleDataSource?
     
@@ -27,17 +27,17 @@ class ZJFlexibleLayout: UICollectionViewLayout {
     //坐标寄存器
     var colHeights:[ColPosition] = []
     
-    init(delegate: ZJFlexibleDataSource){
+    public init(delegate: ZJFlexibleDataSource){
         dataSourceDelegate = delegate
         super.init()
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override var collectionViewContentSize : CGSize {
+    override open var collectionViewContentSize : CGSize {
         if var max = colHeights.last?.maxY{
             if let delegate = self.dataSourceDelegate{
                 max += delegate.sectionInsets(at: colHeights.count-1).bottom
@@ -47,7 +47,7 @@ class ZJFlexibleLayout: UICollectionViewLayout {
         return CGSize.zero
     }
     
-    override func prepare() {
+    override open func prepare() {
         //每次reloadData后需要layout
         layoutInit()
         
@@ -141,11 +141,11 @@ class ZJFlexibleLayout: UICollectionViewLayout {
         collectionView?.addSubview(headerView)
     }
     
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override open func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return layoutDict[indexPath]
     }
     
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var result : [UICollectionViewLayoutAttributes] = []
         layoutDict.values.forEach({ (attribute) in
             if attribute.frame.intersects(rect) {
@@ -160,7 +160,7 @@ class ZJFlexibleLayout: UICollectionViewLayout {
         return result
     }
     
-    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override open func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         if indexPath.section >= layoutHeaderViewInfo.count {
             return nil
         }

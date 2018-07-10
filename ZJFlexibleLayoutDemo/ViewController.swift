@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZJFlexibleLayout
 
 class ViewController: UIViewController {
 
@@ -107,3 +108,7 @@ let systemRedColor = UIColor(hex: 0xd9534f) ?? UIColor.red
 let systemGreenColor = UIColor(hex: 0x5cb85c) ?? UIColor.green
 let systemYelloColor = UIColor(hex: 0xf0ad4e) ?? UIColor.yellow
 let colors = [systemBlueColor, systemRedColor, systemGreenColor, systemYelloColor]
+let kScreenBounds = UIScreen.main.bounds
+let kScreenSize = kScreenBounds.size
+let kScreenWidth = kScreenSize.width
+let kScreenHeight = kScreenSize.height
