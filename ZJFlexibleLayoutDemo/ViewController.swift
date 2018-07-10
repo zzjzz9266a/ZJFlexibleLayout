@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         let headerView = UILabel(frame: CGRect(x: 0, y: 10, width: kScreenWidth, height: 200))
         headerView.textAlignment = .center
         headerView.attributedText = NSAttributedString(string: "我是CollectionHeaderView", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.white])
-        headerView.backgroundColor = .green
+        headerView.backgroundColor = systemGreenColor
         layout.collectionHeaderView = headerView
         
         collectionView = UICollectionView(frame: kScreenBounds, collectionViewLayout: layout)
@@ -90,24 +90,20 @@ extension ViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
         cell.label.text = "\(indexPath)"
-        cell.backgroundColor = UIColor.randomColor()
+        cell.backgroundColor = colors[indexPath.row%4]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! CustomHeader
         header.label.text = "我是第\(indexPath.section)个sectionHeader"
-        header.backgroundColor = .black
+        header.backgroundColor = .brown
         return header
     }
 }
 
-extension UIColor{
-    
-    static func randomColor() -> UIColor{
-        let color1:CGFloat = CGFloat(CGFloat(arc4random())/CGFloat(RAND_MAX))
-        let color2:CGFloat = CGFloat(CGFloat(arc4random())/CGFloat(RAND_MAX))
-        let color3:CGFloat = CGFloat(CGFloat(arc4random())/CGFloat(RAND_MAX))
-        return UIColor(red: color1, green: color2, blue: color3, alpha: 1)
-    }
-}
+let systemBlueColor = UIColor(hex: 0x428bca) ?? UIColor.blue
+let systemRedColor = UIColor(hex: 0xd9534f) ?? UIColor.red
+let systemGreenColor = UIColor(hex: 0x5cb85c) ?? UIColor.green
+let systemYelloColor = UIColor(hex: 0xf0ad4e) ?? UIColor.yellow
+let colors = [systemBlueColor, systemRedColor, systemGreenColor, systemYelloColor]

@@ -1,35 +1,78 @@
-# 引
-公司的项目中涉及到多列瀑布流、UITableView与sectionHeader的混合布局，之前的实现方式是以UITableView作为骨架，将带有瀑布流的UICollectionView封装到自定义的UITableViewCell中，但是出现的问题就是当cell中瀑布流的元素过多时，会出现明显的卡顿，而且布局复杂，层次较多，难以维护。故而重新自定义了collectionView的Layout，在仅有一个collectionView的情况下完成了上述的布局。
+![ZJFlexibleLayout](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/ZJFlexibleLayout.png)
 
-![这是我们项目.gif](http://upload-images.jianshu.io/upload_images/1324647-a16b3f63f74d4323.gif?imageMogr2/auto-orient/strip)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ZJFlexibleLayout.svg)](https://github.com/CocoaPods/CocoaPods)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform](https://img.shields.io/badge/platform-iOS-green.svg)](https://github.com/zzjzz9266a/91porn_php)
 
 
-### 更新：
----  
-2016-12-23  
-1、加入了collectionHeaderView，类似UITableView 中的 tableHeaderView  
-2、将 sideMargin 改为 sectionInsets，提高布局灵活度  
+ZJFlexibleLayout is a simple UI component of flexible waterfall layout for iOS platform.
+## Features
 
----  
-2017-11-03  
-项目支持到swift4.0  
+- [x] Easy To Use
+- [x] Flexible In Any Layout Including WaterFall
+- [x] Written All By Swift
 
-# 使用
-闲话不多说，上代码：
-1、首先定义一个collectionview，并设置layout的代理：
+## Requirements
+- iOS 8.0+
+- Xcode 8.3+
+- Swift 3.1+
+
+## Installation
+Just drag all the swift files in path of "source" into your project.
+
+### CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 1.1+ is required to build ZJFlexibleLayout 4.0+.
+
+To integrate ZJFlexibleLayout into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'ZJFlexibleLayout'
+end
+```
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](https://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate ZJFlexibleLayout into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "zzjzz9266a/ZJFlexibleLayout"
+```
+Run `carthage update` to build the framework and drag the built `ZJFlexibleLayout.framework` into your Xcode project.
+
+## Usage
+ 1、Create a `collectionview`，and set the delegate for `layout`：
 ``` swift 
 let layout = ZJFlexibleLayout(delegate: self)
-//如果需要有 headerView 的话，直接传入即可，需提前设置frame
-layout.collectionHeaderView = headerView
+layout.collectionHeaderView = headerView    //could be nil
 collectionView = UICollectionView(frame: kScreenBounds, collectionViewLayout: layout)
 ```
-2、遵守对应的协议：
+2、Implement the protocol `ZJFlexibleDataSource`：
 ``` swift
 protocol ZJFlexibleLayoutDataSource: class{
 
-//控制对应section的瀑布流列数
+    //控制对应section的瀑布流列数
     func numberOfCols(at section: Int) -> Int
-    //控制每个cell的尺寸，实际上就是获取宽高比
+    //控制每个cell的尺寸，实质上就是获取宽高比
     func sizeOfItemAtIndexPath(at indexPath : IndexPath) -> CGSize
     //控制瀑布流cell的间距
     func spaceOfCells(at section: Int) -> CGFloat
@@ -41,52 +84,6 @@ protocol ZJFlexibleLayoutDataSource: class{
     func heightOfAdditionalContent(at indexPath : IndexPath) -> CGFloat
 }
 ```
-### 协议详解：
-#### 1.瀑布流列数
-可以随意设置瀑布流列数，如果是单列的话就相当于tableView了
-``` Swift
-     func numberOfCols(at section: Int) -> Int
-```
----
-#### 2.cell尺寸
-这个应该不用多讲吧，因为cell的宽度在列数确定时就已经算出来了，所以这个方法实质上是获取cell的宽高比
-``` Swift
-    func sizeOfItemAtIndexPath(at indexPath : IndexPath) -> CGSize
-```
-![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1324647-c1d10bc34034cbab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+## License
 
----
-#### 3.cell间距
-cell 的上下左右间距，注意不要跟sectionInsets搞混了 
-``` Swift
-    func spaceOfCells(at section: Int) -> CGFloat
-```
-![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1324647-90ea5f5615c40e6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
----
-#### 4.section 内边距
-这个是最近才加上的，可以让每个section都有一个内边距
-```Swift
-    func sectionInsets(at section: Int) -> UIEdgeInsets
-```
-![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1324647-c6d16eb2238ec1c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
----
-#### 5.每个section的header尺寸
-sectionHeader如果宽度小于屏宽，会自动居中
-```Swift
-    func sizeOfHeader(at section: Int) -> CGSize
-```
-
-#### 6.cell的额外高度
-此方法是专门公司项目的需求提出的，图中标明的部分高度是不固定的，需要根据数据进行判断
-```Swift
-    func heightOfAdditionalContent(at indexPath : IndexPath) -> CGFloat
-```
-![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1324647-4ce5208fae820967.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
----
-
-欢迎大家Star，也请大家不要吝啬好的建议哈~~
-
-![这是demo.gif](http://upload-images.jianshu.io/upload_images/1324647-5d3076da5d2aebff.gif?imageMogr2/auto-orient/strip)
+ZJFlexibleDataLayout is released under the MIT license. [See LICENSE](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE) for details.
