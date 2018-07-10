@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ZJFlexibleDataSource: class{
+public protocol ZJFlexibleDataSource: class{
     //控制对应section的瀑布流列数
     func numberOfCols(at section: Int) -> Int
     //控制每个cell的尺寸，实际上就是获取宽高比
