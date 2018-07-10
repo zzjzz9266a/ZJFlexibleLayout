@@ -2,11 +2,15 @@
     <a href="https://github.com/zzjzz9266a/ZJFlexibleLayout"><img src="https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/ZJFlexibleLayout.png"></a>
 </p>
 
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ZJFlexibleLayout.svg)](https://github.com/CocoaPods/CocoaPods)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform](https://img.shields.io/badge/platform-iOS-green.svg)](https://github.com/zzjzz9266a/ZJFlexibleLayout)
-![Language](https://img.shields.io/badge/language-swift%204.1-orange.svg)
-[![LICENSE](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE)
+<p align="center">
+    <a href="https://github.com/CocoaPods/CocoaPods"><img src="https://img.shields.io/cocoapods/v/ZJFlexibleLayout.svg"></a>
+    <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
+    <a href="https://github.com/zzjzz9266a/ZJFlexibleLayout"><img src="https://img.shields.io/badge/platform-iOS-green.svg"></a>
+    <a href="https://github.com/apple/swift"><img src="https://img.shields.io/badge/language-swift%204.1-orange.svg"></a>
+    <a href="https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE"><img src="https://img.shields.io/apm/l/vim-mode.svg"></a>
+</p>
+
+
 
 ZJFlexibleLayout is a simple UI component of flexible waterfall layout for iOS platform.
 - [Features](#features)
@@ -27,7 +31,6 @@ ZJFlexibleLayout is a simple UI component of flexible waterfall layout for iOS p
 - Swift 3.1+
 
 ## Installation
-Just drag all the swift files in path of "source" into your project.
 
 ### CocoaPods
 
@@ -37,7 +40,7 @@ Just drag all the swift files in path of "source" into your project.
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1+ is required to build ZJFlexibleLayout 4.0+.
+> CocoaPods 1.1+ is required to build `ZJFlexibleLayout`.
 
 To integrate ZJFlexibleLayout into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -95,4 +98,4 @@ protocol ZJFlexibleLayoutDataSource: class{
 ```
 ## License
 
-ZJFlexibleDataLayout is released under the MIT license. [See LICENSE](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE) for details.
+ZJFlexibleDataLayout is released under the MIT license. See [LICENSE](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE) for details.
