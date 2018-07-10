@@ -5,11 +5,16 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ZJFlexibleLayout.svg)](https://github.com/CocoaPods/CocoaPods)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/badge/platform-iOS-green.svg)](https://github.com/zzjzz9266a/ZJFlexibleLayout)
-[![Language](https://img.shields.io/badge/language-swift %204.1-orange.svg)](https://github.com/zzjzz9266a/ZJFlexibleLayout)
+![Language](https://img.shields.io/badge/language-swift%204.1-orange.svg)
 [![LICENSE](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE)
 
-
 ZJFlexibleLayout is a simple UI component of flexible waterfall layout for iOS platform.
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+
 ## Features
 
 - [x] Easy To Use
