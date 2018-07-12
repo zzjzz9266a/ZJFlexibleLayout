@@ -19,6 +19,7 @@ ZJFlexibleLayout is a simple UI component of flexible waterfall layout for iOS p
 - [Usage](#usage)
 - [License](#license)
 
+
 ## Features
 
 - [x] Easy To Use
@@ -96,6 +97,12 @@ protocol ZJFlexibleLayoutDataSource: class{
     func heightOfAdditionalContent(at indexPath : IndexPath) -> CGFloat
 }
 ```
+
+## Example
+<p align="center">
+    <img src="https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/ZJFlexibleLayout.gif">
+</p>
+
 ## License
 
 ZJFlexibleDataLayout is released under the MIT license. See [LICENSE](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/LICENSE) for details.
