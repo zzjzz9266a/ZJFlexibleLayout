@@ -12,13 +12,17 @@
 
 
 
+#### [中文简介](https://github.com/zzjzz9266a/ZJFlexibleLayout/blob/master/README_CN.md) 
+
+<br>
+
 ZJFlexibleLayout is a simple UI component of flexible waterfall layout for iOS platform.
+
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
-
 
 ## Features
 
@@ -73,13 +77,13 @@ github "zzjzz9266a/ZJFlexibleLayout"
 Run `carthage update` to build the framework and drag the built `ZJFlexibleLayout.framework` into your Xcode project.
 
 ## Usage
- 1、Create a `collectionview`，and set the delegate for `layout`：
+ 1、Create a new `ZJFlexibleLayout` and set delegate, set this `layout` to `UICollectionView`:
 ``` swift 
 let layout = ZJFlexibleLayout(delegate: self)
 layout.collectionHeaderView = headerView    //could be nil
 collectionView = UICollectionView(frame: kScreenBounds, collectionViewLayout: layout)
 ```
-2、Implement the protocol `ZJFlexibleDataSource`：
+2、Implement the protocol `ZJFlexibleDataSource`, just implement the first two methods:
 ``` swift
 protocol ZJFlexibleLayoutDataSource: class{
 
