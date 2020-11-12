@@ -2,15 +2,15 @@ PODS:
   - ZJFlexibleLayout (1.0)
 
 DEPENDENCIES:
-  - ZJFlexibleLayout
+  - ZJFlexibleLayout (from `./`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - ZJFlexibleLayout
+EXTERNAL SOURCES:
+  ZJFlexibleLayout:
+    :path: "./"
 
 SPEC CHECKSUMS:
   ZJFlexibleLayout: 58094cc7c51113a356f3d80c3e3107af4ef47387
 
-PODFILE CHECKSUM: 6405007a9fdd917f386c6e0d26335333e9256a16
+PODFILE CHECKSUM: 3bde4c2155ece160a6a96481951b46cbd2b75df6
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

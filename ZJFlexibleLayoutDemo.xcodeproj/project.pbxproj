@@ -11,7 +11,6 @@
 		B44671221DF9BE6200B576D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44671211DF9BE6200B576D0 /* ViewController.swift */; };
 		B44671271DF9BE6200B576D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44671261DF9BE6200B576D0 /* Assets.xcassets */; };
 		B446712A1DF9BE6200B576D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44671281DF9BE6200B576D0 /* LaunchScreen.storyboard */; };
-		B474D1FA20F5272800BCC95B /* SwiftColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474D1F920F5272800BCC95B /* SwiftColors.swift */; };
 		B49292EC1DF9C888000895B8 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49292EB1DF9C888000895B8 /* CustomCell.swift */; };
 		B49292EE1DF9C968000895B8 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49292ED1DF9C968000895B8 /* CustomHeader.swift */; };
 		ECA625FF0557F35DB0CED4A5 /* Pods_ZJFlexibleLayoutDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4211532F740F28DBB21C5106 /* Pods_ZJFlexibleLayoutDemo.framework */; };
@@ -40,7 +39,6 @@
 		B44671261DF9BE6200B576D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B44671291DF9BE6200B576D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B446712B1DF9BE6200B576D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B474D1F920F5272800BCC95B /* SwiftColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftColors.swift; path = ../../../Documents/Personal_Projects/ZJFlexibleLayout/ZJFlexibleLayoutDemo/SwiftColors.swift; sourceTree = "<group>"; };
 		B49292EB1DF9C888000895B8 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		B49292ED1DF9C968000895B8 /* CustomHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
 		C096844B2354EF326019BD1A /* Pods_ZJFlexibleLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZJFlexibleLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +103,6 @@
 				B44671211DF9BE6200B576D0 /* ViewController.swift */,
 				B49292EB1DF9C888000895B8 /* CustomCell.swift */,
 				B49292ED1DF9C968000895B8 /* CustomHeader.swift */,
-				B474D1F920F5272800BCC95B /* SwiftColors.swift */,
 				B44671261DF9BE6200B576D0 /* Assets.xcassets */,
 				B44671281DF9BE6200B576D0 /* LaunchScreen.storyboard */,
 				B446712B1DF9BE6200B576D0 /* Info.plist */,
@@ -149,7 +146,7 @@
 					B446711B1DF9BE6200B576D0 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = Z4H85W66CY;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1210;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -159,6 +156,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -191,7 +189,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZJFlexibleLayoutDemo/Pods-ZJFlexibleLayoutDemo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ZJFlexibleLayoutDemo/Pods-ZJFlexibleLayoutDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ZJFlexibleLayout/ZJFlexibleLayout.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -200,7 +198,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZJFlexibleLayoutDemo/Pods-ZJFlexibleLayoutDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZJFlexibleLayoutDemo/Pods-ZJFlexibleLayoutDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		33EC3ABAADAA72FE57AF6FD9 /* [CP] Check Pods Manifest.lock */ = {
@@ -232,7 +230,6 @@
 				B49292EC1DF9C888000895B8 /* CustomCell.swift in Sources */,
 				B44671201DF9BE6200B576D0 /* AppDelegate.swift in Sources */,
 				B49292EE1DF9C968000895B8 /* CustomHeader.swift in Sources */,
-				B474D1FA20F5272800BCC95B /* SwiftColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.ZhijieZhang.ZJFlexibleLayoutDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -369,7 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.ZhijieZhang.ZJFlexibleLayoutDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

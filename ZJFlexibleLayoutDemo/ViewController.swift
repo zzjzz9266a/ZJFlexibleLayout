@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         //设置headerView
         let headerView = UILabel(frame: CGRect(x: 0, y: 10, width: kScreenWidth, height: 200))
         headerView.textAlignment = .center
-        headerView.attributedText = NSAttributedString(string: "我是CollectionHeaderView", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.white])
+        headerView.attributedText = NSAttributedString(string: "我是CollectionHeaderView", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.white])
         headerView.backgroundColor = systemGreenColor
         layout.collectionHeaderView = headerView
         
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView.register(CustomHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
+        collectionView.register(CustomHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
     }
 }
 
@@ -96,17 +96,17 @@ extension ViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! CustomHeader
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! CustomHeader
         header.label.text = "我是第\(indexPath.section)个sectionHeader"
         header.backgroundColor = .brown
         return header
     }
 }
 
-let systemBlueColor = UIColor(hex: 0x428bca) ?? UIColor.blue
-let systemRedColor = UIColor(hex: 0xd9534f) ?? UIColor.red
-let systemGreenColor = UIColor(hex: 0x5cb85c) ?? UIColor.green
-let systemYelloColor = UIColor(hex: 0xf0ad4e) ?? UIColor.yellow
+let systemBlueColor = UIColor.blue
+let systemRedColor = UIColor.red
+let systemGreenColor = UIColor.green
+let systemYelloColor = UIColor.yellow
 let colors = [systemBlueColor, systemRedColor, systemGreenColor, systemYelloColor]
 let kScreenBounds = UIScreen.main.bounds
 let kScreenSize = kScreenBounds.size

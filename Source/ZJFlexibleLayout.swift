@@ -65,7 +65,7 @@ open class ZJFlexibleLayout: UICollectionViewLayout {
                 let headerH = headerSize.height
                 
                 //拼接header 的layoutAttributes
-                let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: section))
+                let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: section))
                 headerAttributes.frame = CGRect(x: headerX, y: currentSectionHeaderY, width: headerSize.width, height: headerSize.height)
                 layoutHeaderViewInfo.append(headerAttributes)
                 
